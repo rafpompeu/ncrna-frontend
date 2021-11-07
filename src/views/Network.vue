@@ -24,12 +24,12 @@
       accept=".csv"
       v-model="files"
       color="deep-purple accent-4"
-      label="File input"
-      multiple
+      label="File input"     
       placeholder="Select your files"
       prepend-icon="mdi-paperclip"
       outlined
       :show-size="1000"
+      @change="selectedFile"
     >
       <template v-slot:selection="{ index, text }">
         <v-chip v-if="index < 2" color="deep-purple accent-4" dark label small>
@@ -79,6 +79,22 @@ export default {
     },
     networkAnalysis() {
       this.loading = true;
+    },
+
+    selectedFile() {
+      if (!this.files) {
+        this.data = "No File Chosen";
+      }
+      var reader = new FileReader();
+      // Use the javascript reader object to load the contents
+      // of the file in the v-model prop
+      reader.readAsText(this.files);
+      reader.onload = () => {
+        let nodeFinderList =  reader.result.split(',');
+        console.log(nodeFinderList)
+
+      };
+      
     },
   },
 };
