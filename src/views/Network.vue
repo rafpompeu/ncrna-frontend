@@ -22,7 +22,7 @@
     </v-row>
     <v-file-input
       accept=".csv"
-      v-model="files"
+      v-model="file"
       color="deep-purple accent-4"
       label="File input"     
       placeholder="Select your files"
@@ -40,7 +40,7 @@
           v-else-if="index === 2"
           class="text-overline grey--text text--darken-3 mx-2"
         >
-          +{{ files.length - 2 }} File(s)
+          +{{ file.length - 2 }} File(s)
         </span>
       </template>
     </v-file-input>
@@ -66,7 +66,7 @@ export default {
       itemsInput: ["Gene", "miRNA", "piRNA", "circRNA"],
       selectOutput: [],
       selectInput: [],
-      files: null,
+      file: null,
       loading: false,
     };
   },
@@ -82,13 +82,13 @@ export default {
     },
 
     selectedFile() {
-      if (!this.files) {
+      if (!this.file) {
         this.data = "No File Chosen";
       }
       var reader = new FileReader();
       // Use the javascript reader object to load the contents
       // of the file in the v-model prop
-      reader.readAsText(this.files);
+      reader.readAsText(this.file);
       reader.onload = () => {
         let nodeFinderList =  reader.result.split(',');
         console.log(nodeFinderList)
